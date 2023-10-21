@@ -2,10 +2,6 @@ name: CD manually triggered
 
 on: workflow_dispatch
 
-defaults:
-  run:
-    working-directory: ./configuracion-ms
-
 env:
   PROJECT_ID: arqsoft-calltrack
   GAR_LOCATION: us-central1
