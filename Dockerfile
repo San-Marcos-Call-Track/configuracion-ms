@@ -6,13 +6,13 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["configuracion-ms/Configuracion-ms.csproj", "configuracion-ms/"]
-RUN dotnet restore "configuracion-ms/configuracion-ms.csproj"
+RUN dotnet restore "./configuracion-ms/Configuracion-ms.csproj"
 COPY . .
 WORKDIR "/src/configuracion-ms"
-RUN dotnet build "configuracion-ms.csproj" -c Release -o /app/build
+RUN dotnet build "Configuracion-ms.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "configuracion-ms.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Configuracion-ms.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
