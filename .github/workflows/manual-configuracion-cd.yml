@@ -1,0 +1,56 @@
+name: CD manually triggered
+
+on: workflow_dispatch
+
+defaults:
+  run:
+    working-directory: ./configuracion-ms
+
+env:
+  PROJECT_ID: arqsoft-calltrack
+  GAR_LOCATION: us-central1
+  REPOSITORY: configuracion-ms-repo
+  IMAGES: configuracion-ms-container
+  SERVICE: configuracion-ms-service
+  REGION: us-central1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Google Auth
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_DCR_KEY}}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+  
+      - name: Use gcloud CLI
+        run: gcloud info
+
+      - name: Docker auth
+        run: |-
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build and Push Container
+        run: |-
+          docker build -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_REPOSITORY }}/${{ env.BACKEND_IMAGES }}:${{ github.sha }} .
+          docker push ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_REPOSITORY }}/${{ env.BACKEND_IMAGES }}:${{ github.sha }}
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v1
+        with:
+          service: ${{ env.BACKEND_SERVICE }}
+          region: ${{ env.REGION }}
+          image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_REPOSITORY }}/${{ env.BACKEND_IMAGES }}:${{ github.sha }}
+
+      - name: Show Output
+        run: echo ${{ steps.deploy.outputs.url }}
