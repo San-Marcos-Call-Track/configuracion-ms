@@ -33,6 +33,7 @@ namespace configuracion_ms.Controllers
             }
             var id = ObjectId.GenerateNewId();
             newAgent.Id = id;
+            newAgent.LastEdition = DataTime.GetGTM5();
             await _agentRepository.CreateAsync(newAgent);
             return CreatedAtAction(nameof(Get), new { id = newAgent.Id }, newAgent);
         }

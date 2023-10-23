@@ -26,7 +26,7 @@ namespace configuracion_ms.Controllers
         public async Task<ActionResult> Post(CampaignGuide newCampaignGuide)
         {
             var existingCampaign = await _campaignGuideRepository.GetAsync(newCampaignGuide.Code);
-            if (existingCampaign == null)
+            if (existingCampaign != null)
             {
                 return BadRequest("Campaña existe");
             }

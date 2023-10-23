@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
@@ -23,5 +24,8 @@ namespace Domain.Entities
 
         [BsonIgnoreIfNull]
         public string? PersonalMail { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public String? LastEdition { get; set; }
     }
 }
