@@ -20,5 +20,8 @@ namespace Domain.Entities
 
         [BsonIgnoreIfNull]
         public string? WorkGroup { get; set; }
+
+        [BsonIgnoreIfNull]
+        public string? PersonalMail { get; set; }
     }
 }
