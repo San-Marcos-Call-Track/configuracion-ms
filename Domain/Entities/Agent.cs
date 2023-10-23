@@ -11,7 +11,7 @@ namespace Domain.Entities
         public ObjectId Id { get; set; }
 
         [BsonIgnoreIfNull]
-        public string? Dni { get; set; }
+        public required string Dni { get; set; }
 
         [BsonIgnoreIfNull]
         public string? FirstName { get; set; }

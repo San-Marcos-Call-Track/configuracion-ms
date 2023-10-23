@@ -11,7 +11,7 @@ namespace Domain.Entities
         public ObjectId Id { get; set; }
 
         [BsonIgnoreIfNull]
-        public string? Code { get; set; }
+        public required string Code { get; set; }
 
         [BsonIgnoreIfNull]
         public string? CampaignName { get; set; }

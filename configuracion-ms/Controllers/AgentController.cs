@@ -75,6 +75,7 @@ namespace configuracion_ms.Controllers
             existingAgent.LastName = updateAgent.LastName;
             existingAgent.WorkGroup = updateAgent.WorkGroup;
             existingAgent.LastEdition = DataTime.GetGTM5();
+            existingAgent.PersonalMail = updateAgent.PersonalMail;
             await _agentRepository.UpdateAsync(dni, existingAgent);
             return BadRequest("Actualizado"); 
         }
