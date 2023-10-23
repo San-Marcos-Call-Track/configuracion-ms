@@ -60,6 +60,9 @@ namespace configuracion_ms.Controllers
             }
             existingCampaignGuide.LastEdition = DataTime.GetGTM5();
             existingCampaignGuide.CampaignName = updateCampaignGuide.CampaignName;
+            existingCampaignGuide.StarDate = updateCampaignGuide.StarDate;
+            existingCampaignGuide.EndingDate = updateCampaignGuide.EndingDate;
+            existingCampaignGuide.CallScript = updateCampaignGuide.CallScript;
             await _campaignGuideRepository.UpdateAsync(code, existingCampaignGuide);
             return NoContent();
         }

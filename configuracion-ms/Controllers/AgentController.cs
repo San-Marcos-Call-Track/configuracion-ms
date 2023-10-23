@@ -74,6 +74,7 @@ namespace configuracion_ms.Controllers
             existingAgent.FirstName = updateAgent.FirstName;
             existingAgent.LastName = updateAgent.LastName;
             existingAgent.WorkGroup = updateAgent.WorkGroup;
+            existingAgent.LastEdition = DataTime.GetGTM5();
             await _agentRepository.UpdateAsync(dni, existingAgent);
             return NoContent(); 
         }
