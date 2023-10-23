@@ -76,7 +76,15 @@ namespace configuracion_ms.Controllers
             existingAgent.WorkGroup = updateAgent.WorkGroup;
             existingAgent.LastEdition = DataTime.GetGTM5();
             await _agentRepository.UpdateAsync(dni, existingAgent);
-            return NoContent(); 
+            return BadRequest("Actualizado"); 
+        }
+
+        // Consult documents by WorkGroup
+        [HttpGet("workgroup/{workgroup}")]
+        public async Task<List<Agent>> GetByWorkGroup(string workgroup)
+        {
+            var agents = await _agentRepository.GetByWorkGroupAsync(workgroup);
+            return agents;
         }
     }
 }

@@ -49,5 +49,12 @@ namespace Infrastructure.Repositories
             await _agentCollection.DeleteManyAsync(Builders<Agent>
                 .Filter.Eq(x => x.Dni, dni));
         }
+
+        public async Task<List<Agent>> GetByWorkGroupAsync(string workgroup)
+        {
+            var agents = await _agentCollection.Find(Builders<Agent>
+                .Filter.Eq(x => x.WorkGroup, workgroup)).ToListAsync();
+            return agents;
+        }
     }
 }
