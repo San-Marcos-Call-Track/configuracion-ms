@@ -32,7 +32,7 @@ namespace configuracion_ms.Controllers
             }
             var id = ObjectId.GenerateNewId();
             newCampaignGuide.Id = id;
-            newCampaignGuide.LastEdition = DataTime.GetGTM5();
+            newCampaignGuide.LastEdition = DataTime.GetGtm5();
             await _campaignGuideRepository.CreateAsync(newCampaignGuide);
             return CreatedAtAction(nameof(Get), new { id = newCampaignGuide.Id }, newCampaignGuide);
         }
@@ -58,7 +58,7 @@ namespace configuracion_ms.Controllers
             {
                 return NotFound();
             }
-            existingCampaignGuide.LastEdition = DataTime.GetGTM5();
+            existingCampaignGuide.LastEdition = DataTime.GetGtm5();
             existingCampaignGuide.CampaignName = updateCampaignGuide.CampaignName;
             existingCampaignGuide.StarDate = updateCampaignGuide.StarDate;
             existingCampaignGuide.EndingDate = updateCampaignGuide.EndingDate;

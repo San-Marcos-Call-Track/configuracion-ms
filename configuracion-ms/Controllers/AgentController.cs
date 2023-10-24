@@ -2,7 +2,6 @@
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using System.Net;
 
 namespace configuracion_ms.Controllers
 {
@@ -33,7 +32,7 @@ namespace configuracion_ms.Controllers
             }
             var id = ObjectId.GenerateNewId();
             newAgent.Id = id;
-            newAgent.LastEdition = DataTime.GetGTM5();
+            newAgent.LastEdition = DataTime.GetGtm5();
             await _agentRepository.CreateAsync(newAgent);
             return CreatedAtAction(nameof(Get), new { id = newAgent.Id }, newAgent);
         }
@@ -47,6 +46,7 @@ namespace configuracion_ms.Controllers
             {
                 return NotFound();
             }
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return agent;
         }
 
@@ -74,7 +74,7 @@ namespace configuracion_ms.Controllers
             existingAgent.FirstName = updateAgent.FirstName;
             existingAgent.LastName = updateAgent.LastName;
             existingAgent.WorkGroup = updateAgent.WorkGroup;
-            existingAgent.LastEdition = DataTime.GetGTM5();
+            existingAgent.LastEdition = DataTime.GetGtm5();
             existingAgent.PersonalMail = updateAgent.PersonalMail;
             await _agentRepository.UpdateAsync(dni, existingAgent);
             return BadRequest("Actualizado"); 
