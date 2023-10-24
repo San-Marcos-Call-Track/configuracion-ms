@@ -18,6 +18,7 @@ namespace configuracion_ms.Controllers
         public async Task<List<Agent>> Get()
         {
             var agent = await _agentRepository.GetAsync();
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return agent;
         }
 
@@ -34,6 +35,7 @@ namespace configuracion_ms.Controllers
             newAgent.Id = id;
             newAgent.LastEdition = DataTime.GetGtm5();
             await _agentRepository.CreateAsync(newAgent);
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return CreatedAtAction(nameof(Get), new { id = newAgent.Id }, newAgent);
         }
 
@@ -59,7 +61,8 @@ namespace configuracion_ms.Controllers
                 return NotFound();
             }
             await _agentRepository.DeleteByDniAsync(dni);
-            return NoContent() ;
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            return BadRequest("Eliminado ${dni}");
         }
 
         //Update document by Dni
@@ -77,6 +80,7 @@ namespace configuracion_ms.Controllers
             existingAgent.LastEdition = DataTime.GetGtm5();
             existingAgent.PersonalMail = updateAgent.PersonalMail;
             await _agentRepository.UpdateAsync(dni, existingAgent);
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return BadRequest("Agent actualizado"); 
         }
 
@@ -85,6 +89,7 @@ namespace configuracion_ms.Controllers
         public async Task<List<Agent>> GetByWorkGroup(string workgroup)
         {
             var agents = await _agentRepository.GetByWorkGroupAsync(workgroup);
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return agents;
         }
     }
