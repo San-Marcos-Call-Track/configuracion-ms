@@ -8,6 +8,18 @@ namespace configuracion_ms
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Agrega el servicio CORS aquí
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder
+                        .WithOrigins("*")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             // Add services to the container.
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -25,6 +37,7 @@ namespace configuracion_ms
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseCors();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
