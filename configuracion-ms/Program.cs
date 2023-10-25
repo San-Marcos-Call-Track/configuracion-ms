@@ -8,7 +8,7 @@ namespace configuracion_ms
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Agrega el servicio CORS aquí
+            // Add service to CORS
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
@@ -35,12 +35,10 @@ namespace configuracion_ms
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+
                 app.UseCors();
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
