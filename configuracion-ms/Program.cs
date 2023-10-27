@@ -28,21 +28,18 @@ namespace configuracion_ms
 
             //Using MongoDB in collections
             builder.Services.Configure<BaseRepository>(
-                builder.Configuration.GetSection("ConfiguracionMS"));
+            builder.Configuration.GetSection("ConfiguracionMS"));
             builder.Services.AddSingleton<CampaignGuideRepository>();
             builder.Services.AddSingleton<AgentRepository>();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-
-                app.UseCors();
-                app.UseSwagger();
-                app.UseSwaggerUI();
-
+            app.UseCors();
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseHttpsRedirection();
             app.UseAuthorization();
-
             app.MapControllers();
             app.Run();
         }
