@@ -17,7 +17,7 @@ namespace Infrastructure.Repositories
                 baseRepository.Value.DatabaseName);
 
             _campaignGuideCollection = mongoDatabase.GetCollection<CampaignGuide>(
-               "CampaignGuide");
+               "campaign_guide");
         }
 
         public async Task<List<CampaignGuide>> GetAsync()

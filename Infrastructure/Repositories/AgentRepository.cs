@@ -16,7 +16,7 @@ namespace Infrastructure.Repositories
             var mongoDatabase = mongoClient.GetDatabase(
                 baseRepository.Value.DatabaseName);
 
-            _agentCollection = mongoDatabase.GetCollection<Agent>("Agent");
+            _agentCollection = mongoDatabase.GetCollection<Agent>("agent");
         }
 
         public async Task<List<Agent>> GetAsync()
